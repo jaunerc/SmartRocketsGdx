@@ -30,7 +30,7 @@ public class SmartRocketsGame extends Game {
 	
 	private void startRocketScreen() {
 		RocketScreen rocketScreen = new RocketScreen(this);
-		setScreen(rocketScreen);
+		setScreen(rocketScreen); 
 	}
 
 	@Override
