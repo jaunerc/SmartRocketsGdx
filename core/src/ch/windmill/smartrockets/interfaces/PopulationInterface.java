@@ -1,5 +1,7 @@
 package ch.windmill.smartrockets.interfaces;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public interface PopulationInterface {
 
 	/**
@@ -11,6 +13,8 @@ public interface PopulationInterface {
 	 * Updates the entire population of rockets.
 	 */
 	void updatePopulation();
+	
+	void drawPopulation(SpriteBatch batch);
 	
 	/**
 	 * Generates a random population of rockets. This method removes all existing rockets.

@@ -48,6 +48,6 @@ public class SmartRocketsGame extends Game {
 	}
 	
 	public void renderRockets() {
-		
+		population.drawPopulation(batch);
 	}
 }

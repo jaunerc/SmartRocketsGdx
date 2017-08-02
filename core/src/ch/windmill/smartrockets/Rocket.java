@@ -1,12 +1,17 @@
 package ch.windmill.smartrockets;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.interfaces.Drawable;
 import ch.windmill.smartrockets.interfaces.RocketInterface;
 
-public class Rocket implements RocketInterface {
+public class Rocket implements RocketInterface, Drawable {
 	
 	private final static int TARGET_BOUNDARY = 10;
+	private final static String TEXTURE_NAME = "rocket.png";
 	
 	private Vector2 position;
 	private Vector2 velocity;
@@ -76,5 +81,11 @@ public class Rocket implements RocketInterface {
 		acceleration.add(force);
 		velocity.add(acceleration);
 		position.add(velocity);
+	}
+
+	@Override
+	public void draw(SpriteBatch batch) {
+		final Texture rocketTexture = new Texture(Gdx.files.internal(TEXTURE_NAME));
+		batch.draw(rocketTexture, position.x, position.y);
 	}
 }
