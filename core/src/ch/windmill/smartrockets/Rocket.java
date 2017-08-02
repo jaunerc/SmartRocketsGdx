@@ -2,6 +2,8 @@ package ch.windmill.smartrockets;
 
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.interfaces.RocketInterface;
+
 public class Rocket implements RocketInterface {
 	
 	private final static int TARGET_BOUNDARY = 10;
@@ -36,20 +38,6 @@ public class Rocket implements RocketInterface {
 		}
 	}
 
-	private void applyForce(final Vector2 force) {
-		if(!(completed || crashed)) {
-			final Vector2 ff = dna.getCurrentGene();
-			newtonsSecondLawOfMotion(ff);
-			acceleration.setZero();
-		}
-	}
-	
-	private void newtonsSecondLawOfMotion(final Vector2 force) {
-		acceleration.add(force);
-		velocity.add(acceleration);
-		position.add(velocity);
-	}
-
 	@Override
 	public float getFitness() {
 		return fitness;
@@ -62,13 +50,31 @@ public class Rocket implements RocketInterface {
 
 	@Override
 	public void calcFitness(Vector2 target) {
-		// TODO Auto-generated method stub
-		
+		final float distanceToTarget = position.dst(target);
+		fitness = distanceToTarget;
+		if(completed) {
+			fitness *= 10;
+		}
+		if(crashed) {
+			fitness /= 10;
+		}
 	}
 
 	@Override
-	public void update(int geneIndex) {
-		// TODO Auto-generated method stub
-		
+	public void update() {
+		applyForce();
+	}
+
+	private void applyForce() {
+		if(!(completed || crashed)) {
+			newtonsSecondLawOfMotion(dna.getCurrentGene());
+			acceleration.setZero();
+		}
+	}
+	
+	private void newtonsSecondLawOfMotion(final Vector2 force) {
+		acceleration.add(force);
+		velocity.add(acceleration);
+		position.add(velocity);
 	}
 }

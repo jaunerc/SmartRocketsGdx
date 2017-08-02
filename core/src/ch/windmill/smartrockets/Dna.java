@@ -8,6 +8,8 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.interfaces.DnaInterface;
+
 public class Dna implements DnaInterface {
 	
 	private final static double MUTATION_THRESHOLD = 0.01;

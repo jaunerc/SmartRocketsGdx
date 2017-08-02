@@ -3,9 +3,9 @@ package gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import ch.windmill.smartrockets.MatingPoolInterface;
 import ch.windmill.smartrockets.Population;
-import ch.windmill.smartrockets.PopulationInterface;
+import ch.windmill.smartrockets.interfaces.MatingPoolInterface;
+import ch.windmill.smartrockets.interfaces.PopulationInterface;
 
 public class SmartRocketsGame extends Game {
 	

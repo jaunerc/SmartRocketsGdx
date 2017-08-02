@@ -1,4 +1,4 @@
-package ch.windmill.smartrockets;
+package ch.windmill.smartrockets.interfaces;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,9 +12,8 @@ public interface RocketInterface {
 	
 	/**
 	 * Updates this rocket.
-	 * @param geneIndex
 	 */
-	void update(int geneIndex);
+	void update();
 	
 	/**
 	 * Calculates the fitness value of this rocket.

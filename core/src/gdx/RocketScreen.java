@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import ch.windmill.smartrockets.MatingPool;
-import ch.windmill.smartrockets.MatingPoolInterface;
-import ch.windmill.smartrockets.PopulationInterface;
+import ch.windmill.smartrockets.interfaces.MatingPoolInterface;
+import ch.windmill.smartrockets.interfaces.PopulationInterface;
 
 public class RocketScreen implements Screen {
 	
