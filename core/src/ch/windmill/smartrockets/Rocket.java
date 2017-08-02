@@ -87,5 +87,6 @@ public class Rocket implements RocketInterface, Drawable {
 	public void draw(SpriteBatch batch) {
 		final Texture rocketTexture = new Texture(Gdx.files.internal(TEXTURE_NAME));
 		batch.draw(rocketTexture, position.x, position.y);
+		System.out.println("Rocket drawed...");
 	}
 }
