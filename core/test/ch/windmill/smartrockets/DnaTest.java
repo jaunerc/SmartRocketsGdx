@@ -65,4 +65,24 @@ public class DnaTest {
 		final Dna dna = new Dna(genes);
 		assertEquals(25, dna.getSize());
 	}
+	
+	/**
+	 * {@link Dna#getCurrentGene()}
+	 */
+	@Test
+	public void testGetCurrentGene() {
+		final ArrayList<Vector2> genes = generateRandomGenes(5);
+		final Dna dna = new Dna(genes);
+		assertNotNull(dna.getCurrentGene());
+	}
+	
+	/**
+	 * {@link Dna#getCurrentGene()}
+	 */
+	@Test
+	public void testGetCurrentGeneFromEmptyList() {
+		final ArrayList<Vector2> genes = generateRandomGenes(0);
+		final Dna dna = new Dna(genes);
+		assertNull(dna.getCurrentGene());
+	}
 }

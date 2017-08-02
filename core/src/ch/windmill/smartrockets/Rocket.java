@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Rocket implements RocketInterface {
 	
+	private final static int TARGET_BOUNDARY = 10;
+	
 	private Vector2 position;
 	private Vector2 velocity;
 	private Vector2 acceleration;
@@ -28,13 +30,24 @@ public class Rocket implements RocketInterface {
 
 	@Override
 	public void handleCollision(final Vector2 target) {
-		// TODO Auto-generated method stub
-
+		final float distanceToTarget = position.dst(target);
+		if(distanceToTarget < TARGET_BOUNDARY) {
+			completed = true;
+		}
 	}
 
 	private void applyForce(final Vector2 force) {
-		// TODO Auto-generated method stub
-
+		if(!(completed || crashed)) {
+			final Vector2 ff = dna.getCurrentGene();
+			newtonsSecondLawOfMotion(ff);
+			acceleration.setZero();
+		}
+	}
+	
+	private void newtonsSecondLawOfMotion(final Vector2 force) {
+		acceleration.add(force);
+		velocity.add(acceleration);
+		position.add(velocity);
 	}
 
 	@Override

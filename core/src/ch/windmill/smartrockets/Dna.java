@@ -3,10 +3,14 @@ package ch.windmill.smartrockets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class Dna implements DnaInterface {
+	
+	private final static double MUTATION_THRESHOLD = 0.01;
 	
 	private List<Vector2> genes;
 	private Iterator<Vector2> geneIterator;
@@ -35,14 +39,24 @@ public class Dna implements DnaInterface {
 				nextGenes.add(dnaB.getGeneAtPos(i));
 			}
 		}
-		
 		return new Dna(nextGenes);
 	}
 
 	@Override
 	public void mutation() {
-		// TODO Auto-generated method stub
-
+		final Random random = new Random();
+		for(int i = 0; i < genes.size(); i++) {
+			final double choice = random.nextDouble();
+			if(choice < MUTATION_THRESHOLD) {
+				Vector2 vectorToMutate = genes.get(i);
+				setRandomVectorValues(vectorToMutate);
+			}
+		}
+	}
+	
+	private void setRandomVectorValues(final Vector2 vector) {
+		final Random random = new Random();
+		vector.set(random.nextFloat(), random.nextFloat());
 	}
 
 	@Override
@@ -52,8 +66,21 @@ public class Dna implements DnaInterface {
 
 	@Override
 	public Vector2 getCurrentGene() {
-		// TODO Auto-generated method stub
-		return null;
+		if(geneIterator == null) {
+			geneIterator = genes.iterator();
+		}
+		return nextVectorFromIterator();
+	}
+	
+	private Vector2 nextVectorFromIterator() {
+		Vector2 currentVector = null;
+		if(geneIterator.hasNext()) {
+			currentVector = geneIterator.next();
+		} else if(genes.size() > 0) {
+			geneIterator = genes.iterator();
+			currentVector = geneIterator.next();
+		}
+		return currentVector;
 	}
 
 	@Override
