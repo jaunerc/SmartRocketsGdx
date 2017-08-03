@@ -9,7 +9,7 @@ import ch.windmill.smartrockets.entities.PopulationInterface;
 
 public class SmartRocketsGame extends Game {
 	
-	private final static int POPULATION_SIZE = 5;
+	private final static int POPULATION_SIZE = 10;
 	
 	public SpriteBatch batch;
 	

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Rocket implements RocketInterface, Drawable {
 	
 	private final static int TARGET_BOUNDARY = 10;
+	private final static float MAX_VELOCITY = 4f;
 	private final static String TEXTURE_NAME = "rocket_tiny.png";
 	
 	private Vector2 position;
@@ -70,7 +71,9 @@ public class Rocket implements RocketInterface, Drawable {
 	private void applyForce() {
 		if(!(completed || crashed)) {
 			newtonsSecondLawOfMotion(dna.getCurrentGene());
+			limitVelocity();
 			acceleration.setZero();
+			System.out.println("velocity : " + velocity.len());
 		}
 	}
 	
@@ -78,6 +81,12 @@ public class Rocket implements RocketInterface, Drawable {
 		acceleration.add(force);
 		velocity.add(acceleration);
 		position.add(velocity);
+	}
+	
+	private void limitVelocity() {
+		if(velocity.len() > MAX_VELOCITY) {
+			velocity.setLength(MAX_VELOCITY);
+		}
 	}
 
 	@Override
