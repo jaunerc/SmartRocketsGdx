@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.entities.Rocket;
+
 public class RocketTest {
 
 	/**

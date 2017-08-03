@@ -1,4 +1,4 @@
-package ch.windmill.smartrockets.interfaces;
+package ch.windmill.smartrockets.entities;
 
 import java.util.List;
 

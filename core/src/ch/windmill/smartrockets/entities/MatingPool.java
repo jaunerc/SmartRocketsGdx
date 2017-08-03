@@ -1,11 +1,8 @@
-package ch.windmill.smartrockets;
+package ch.windmill.smartrockets.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import ch.windmill.smartrockets.interfaces.MatingPoolInterface;
-import ch.windmill.smartrockets.interfaces.RocketInterface;
 
 public class MatingPool implements MatingPoolInterface {
 

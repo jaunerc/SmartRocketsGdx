@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.entities.Dna;
+
 public class DnaTest {
 
 	/**

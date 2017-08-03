@@ -1,12 +1,8 @@
-package ch.windmill.smartrockets;
+package ch.windmill.smartrockets.entities;
 
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import ch.windmill.smartrockets.interfaces.MatingPoolInterface;
-import ch.windmill.smartrockets.interfaces.PopulationInterface;
-import ch.windmill.smartrockets.interfaces.RocketInterface;
 
 public class Population implements PopulationInterface {
 

@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import ch.windmill.smartrockets.interfaces.RocketInterface;
+import ch.windmill.smartrockets.entities.MatingPool;
+import ch.windmill.smartrockets.entities.Rocket;
+import ch.windmill.smartrockets.entities.RocketInterface;
 
 public class MatingPoolTest {
 

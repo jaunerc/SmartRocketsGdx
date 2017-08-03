@@ -1,4 +1,4 @@
-package ch.windmill.smartrockets;
+package ch.windmill.smartrockets.entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,8 +7,6 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
-
-import ch.windmill.smartrockets.interfaces.DnaInterface;
 
 public class Dna implements DnaInterface {
 	

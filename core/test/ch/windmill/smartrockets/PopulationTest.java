@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import ch.windmill.smartrockets.entities.Population;
+
 public class PopulationTest {
 
 	/**

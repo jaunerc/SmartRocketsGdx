@@ -3,13 +3,13 @@ package gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import ch.windmill.smartrockets.Population;
-import ch.windmill.smartrockets.interfaces.MatingPoolInterface;
-import ch.windmill.smartrockets.interfaces.PopulationInterface;
+import ch.windmill.smartrockets.entities.MatingPoolInterface;
+import ch.windmill.smartrockets.entities.Population;
+import ch.windmill.smartrockets.entities.PopulationInterface;
 
 public class SmartRocketsGame extends Game {
 	
-	private final static int POPULATION_SIZE = 20;
+	private final static int POPULATION_SIZE = 5;
 	
 	public SpriteBatch batch;
 	

@@ -5,14 +5,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import ch.windmill.smartrockets.MatingPool;
-import ch.windmill.smartrockets.interfaces.MatingPoolInterface;
-import ch.windmill.smartrockets.interfaces.PopulationInterface;
+import ch.windmill.smartrockets.entities.MatingPool;
+import ch.windmill.smartrockets.entities.MatingPoolInterface;
+import ch.windmill.smartrockets.entities.PopulationInterface;
 
 public class RocketScreen implements Screen {
 	
-	private final static int VIEWPORT_WIDTH = 100;
-	private final static int VIEWPORT_HEIGHT = 100;
+	private final static int VIEWPORT_WIDTH = 800;
+	private final static int VIEWPORT_HEIGHT = 800;
 	
 	private final SmartRocketsGame game;
 	private OrthographicCamera camera;
@@ -42,7 +42,7 @@ public class RocketScreen implements Screen {
 	}
 	
 	private void clearScreen() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
 	}
