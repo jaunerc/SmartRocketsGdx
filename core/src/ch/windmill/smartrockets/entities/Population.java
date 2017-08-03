@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import ch.windmill.smartrockets.industry.RocketFactory;
+
 public class Population implements PopulationInterface {
 
 	private ArrayList<Rocket> rockets;
@@ -31,9 +33,10 @@ public class Population implements PopulationInterface {
 		if(populationSize <= 0) {
 			throw new IllegalArgumentException("The population size must be greater than 0.");
 		}
+		final RocketFactory factory = new RocketFactory();
 		rockets.clear();
 		for(int i = 0; i < populationSize; i++) {
-			rockets.add(new Rocket());
+			rockets.add(factory.makeRocketWithRandomDna());
 		}
 	}
 

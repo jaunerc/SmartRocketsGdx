@@ -44,7 +44,7 @@ public class SmartRocketsGame extends Game {
 	}
 	
 	public void updateRockets() {
-		
+		population.updatePopulation();
 	}
 	
 	public void renderRockets() {

@@ -1,4 +1,4 @@
-package ch.windmill.smartrockets;
+package ch.windmill.smartrockets.entities;
 
 import static org.junit.Assert.*;
 
