@@ -1,15 +1,13 @@
 package ch.windmill.smartrockets.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Rocket implements RocketInterface, Drawable {
+public class Rocket implements RocketInterface {
 	
 	private final static int TARGET_BOUNDARY = 10;
 	private final static float MAX_VELOCITY = 4f;
-	private final static String TEXTURE_NAME = "rocket_tiny.png";
 	
 	private Vector2 position;
 	private Vector2 velocity;
@@ -31,6 +29,14 @@ public class Rocket implements RocketInterface, Drawable {
 	
 	public Rocket() {
 		this(0, 0, new Dna());
+	}
+	
+	public boolean isCrashed() {
+		return crashed;
+	}
+	
+	public boolean isCompleted() {
+		return completed;
 	}
 
 	@Override
@@ -63,9 +69,11 @@ public class Rocket implements RocketInterface, Drawable {
 		}
 	}
 
+
 	@Override
-	public void update() {
+	public void update(float screenWidth, float screenHeight, Texture texture) {
 		applyForce();
+		handleBoundaries(screenWidth, screenHeight, texture);
 	}
 
 	private void applyForce() {
@@ -73,7 +81,6 @@ public class Rocket implements RocketInterface, Drawable {
 			newtonsSecondLawOfMotion(dna.getCurrentGene());
 			limitVelocity();
 			acceleration.setZero();
-			System.out.println("velocity : " + velocity.len());
 		}
 	}
 	
@@ -88,10 +95,13 @@ public class Rocket implements RocketInterface, Drawable {
 			velocity.setLength(MAX_VELOCITY);
 		}
 	}
-
-	@Override
-	public void draw(SpriteBatch batch) {
-		final Texture rocketTexture = new Texture(Gdx.files.internal(TEXTURE_NAME));
-		batch.draw(rocketTexture, position.x, position.y);
+	
+	private void handleBoundaries(float screenWidth, float screenHeight, Texture texture) {
+		final Vector2 upperRightRocketCorner = new Vector2(position.x + texture.getWidth(), 
+				position.y + texture.getHeight());
+		if(position.x <= 0 || position.y <= 0 || upperRightRocketCorner.x >= screenWidth 
+				|| upperRightRocketCorner.y >= screenHeight) {
+			crashed = true;
+		}
 	}
 }

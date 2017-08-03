@@ -4,7 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 
-import gdx.SmartRocketsGame;
+import ch.windmill.smartrockets.gdx.SmartRocketsGame;
 
 public class HtmlLauncher extends GwtApplication {
 

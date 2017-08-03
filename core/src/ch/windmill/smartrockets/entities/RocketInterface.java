@@ -1,5 +1,6 @@
 package ch.windmill.smartrockets.entities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public interface RocketInterface {
@@ -13,7 +14,7 @@ public interface RocketInterface {
 	/**
 	 * Updates this rocket.
 	 */
-	void update();
+	void update(float screenWidth, float screenHeight, Texture texture);
 	
 	/**
 	 * Calculates the fitness value of this rocket.

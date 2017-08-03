@@ -1,4 +1,4 @@
-package gdx;
+package ch.windmill.smartrockets.gdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -37,7 +37,7 @@ public class RocketScreen implements Screen {
 	public void render(float delta) {
 		clearScreen();
 		updateCamera();
-		game.updateRockets();
+		game.updateRockets(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		renderWithSpriteBatch();
 	}
 	

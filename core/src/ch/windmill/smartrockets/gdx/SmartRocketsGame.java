@@ -1,9 +1,8 @@
-package gdx;
+package ch.windmill.smartrockets.gdx;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import ch.windmill.smartrockets.entities.MatingPoolInterface;
 import ch.windmill.smartrockets.entities.Population;
 import ch.windmill.smartrockets.entities.PopulationInterface;
 
@@ -14,7 +13,6 @@ public class SmartRocketsGame extends Game {
 	public SpriteBatch batch;
 	
 	private PopulationInterface population;
-	private MatingPoolInterface matingPool;
 	
 	@Override
 	public void create () {
@@ -43,8 +41,8 @@ public class SmartRocketsGame extends Game {
 		batch.dispose();
 	}
 	
-	public void updateRockets() {
-		population.updatePopulation();
+	public void updateRockets(final float screenWidth, final float screenHeight) {
+		population.updatePopulation(screenWidth, screenHeight);
 	}
 	
 	public void renderRockets() {

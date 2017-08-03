@@ -12,8 +12,12 @@ public interface PopulationInterface {
 	/**
 	 * Updates the entire population of rockets.
 	 */
-	void updatePopulation();
+	void updatePopulation(float screenWidth, float screenHeight);
 	
+	/**
+	 * Draws the entire population.
+	 * @param batch to draw with.
+	 */
 	void drawPopulation(SpriteBatch batch);
 	
 	/**
