@@ -22,6 +22,8 @@ public interface RocketInterface {
 	 */
 	void calcFitness(Vector2 targetPosition);
 	
+	void setFitness(float fitness);
+	
 	float getFitness();
 	
 	Vector2 getPos();

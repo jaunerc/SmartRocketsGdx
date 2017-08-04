@@ -40,6 +40,11 @@ public class Rocket implements RocketInterface {
 	}
 
 	@Override
+	public void setFitness(final float fitness) {
+		this.fitness = fitness;
+	}
+
+	@Override
 	public void handleCollision(final Vector2 target) {
 		final float distanceToTarget = position.dst(target);
 		if(distanceToTarget < TARGET_BOUNDARY) {
@@ -60,7 +65,7 @@ public class Rocket implements RocketInterface {
 	@Override
 	public void calcFitness(Vector2 target) {
 		final float distanceToTarget = position.dst(target);
-		fitness = distanceToTarget;
+		fitness = 1 / distanceToTarget;
 		if(completed) {
 			fitness *= 10;
 		}
@@ -68,7 +73,6 @@ public class Rocket implements RocketInterface {
 			fitness /= 10;
 		}
 	}
-
 
 	@Override
 	public void update(float screenWidth, float screenHeight, Texture texture) {
@@ -104,4 +108,5 @@ public class Rocket implements RocketInterface {
 			crashed = true;
 		}
 	}
+
 }

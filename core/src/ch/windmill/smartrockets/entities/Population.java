@@ -15,14 +15,20 @@ public class Population implements PopulationInterface {
 	private final static String TEXTURE_NAME = "rocket_tiny.png";
 	
 	private ArrayList<Rocket> rockets;
+	private ArrayList<Rocket> lastGeneration;
 	private MatingPoolInterface matingPool;
 	private Texture rocketTexture;
 	
 	public Population() {
-		rockets = new ArrayList<>();
-		matingPool = new MatingPool();
+		this(new MatingPool());
 	}
 	
+	public Population(final MatingPoolInterface matingPool) {
+		this.matingPool = matingPool;
+		rockets = new ArrayList<>();
+		lastGeneration = new ArrayList<>();
+	}
+
 	@Override
 	public void evolve() {
 		
@@ -31,31 +37,48 @@ public class Population implements PopulationInterface {
 	@Override
 	public void updatePopulation(final float screenWidth, final float screenHeight) {
 		checkRocketTextureLoad();
+		handleRocketUpdate(screenWidth, screenHeight);
+		handleGenerationDeath();
+	}
+	
+	private void handleRocketUpdate(final float screenWidth, final float screenHeight) {
 		final Iterator<Rocket> iterator = rockets.iterator();
 		Rocket rocket;
 		while(iterator.hasNext()) {
 			rocket = iterator.next();
 			rocket.update(screenWidth, screenHeight, rocketTexture);
 			if(rocket.isCrashed() || rocket.isCompleted()) {
+				lastGeneration.add(rocket);
 				iterator.remove();
 			}
 		}
 	}
+	
+	private void handleGenerationDeath() {
+		if(rockets.size() == 0) {
+			evolve();
+		}
+	}
 
 	@Override
-	public void generateRandomPopulation(int populationSize) {
+	public void generateRandomPopulation(final int populationSize) {
 		if(populationSize <= 0) {
 			throw new IllegalArgumentException("The population size must be greater than 0.");
 		}
-		final RocketFactory factory = new RocketFactory();
 		rockets.clear();
+		lastGeneration.clear();
+		createRocketsWithRandomDna(populationSize);
+	}
+	
+	private void createRocketsWithRandomDna(final int populationSize) {
+		final RocketFactory factory = new RocketFactory();
 		for(int i = 0; i < populationSize; i++) {
 			rockets.add(factory.makeRocketWithRandomDna());
 		}
 	}
 
 	@Override
-	public void drawPopulation(SpriteBatch batch) {
+	public void drawPopulation(final SpriteBatch batch) {
 		checkRocketTextureLoad();
 		Vector2 pos;
 		for(Rocket rocket : rockets) {

@@ -25,9 +25,21 @@ public class RocketTest {
 	 * {@link Rocket#calcFitness(Vector2)}
 	 */
 	@Test
-	public void testCalcFitness() {
+	public void testCalcFitnessPositive() {
 		final Rocket rocket = new Rocket();
-		rocket.calcFitness(new Vector2());
-		assertTrue(rocket.getFitness() >= 0.0000000f);
+		rocket.calcFitness(new Vector2(400, 400));
+		System.out.println("fitness: " + rocket.getFitness());
+		assertTrue(rocket.getFitness() >= 0.0f);
+	}
+	
+	/**
+	 * {@link Rocket#calcFitness(Vector2)}
+	 */
+	@Test
+	public void testCalcFitness() {
+		final Rocket rocket = new Rocket(100, 50, new Dna());
+		rocket.calcFitness(new Vector2(100, 100));
+		System.out.println("fitness: " + rocket.getFitness());
+		assertEquals((1f / 50), rocket.getFitness(), 0.01f);
 	}
 }
