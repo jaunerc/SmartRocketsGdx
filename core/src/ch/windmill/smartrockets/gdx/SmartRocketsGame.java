@@ -1,7 +1,7 @@
 package ch.windmill.smartrockets.gdx;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
@@ -17,30 +17,34 @@ public class SmartRocketsGame extends Game {
 	private final static float TARGET_POS_Y = 50;
 	
 	public SpriteBatch batch;
+	public AppConfiguration appConfig;
 	
 	private PopulationInterface population;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		loadAppConfig();
 		initGame();
 		startRocketScreen();
-		
-		
-		
-		Json json = new Json();
-		AppConfiguration acBefore = new AppConfiguration();
-		AppConfiguration.initConfig(acBefore);
-		String j = json.toJson(acBefore);
-		System.out.println(j);
-		AppConfiguration ac = json.fromJson(AppConfiguration.class, j);
+	}
+	
+	private void loadAppConfig() {
+		final Json json = new Json();
+		try {
+			appConfig = json.fromJson(AppConfiguration.class, Gdx.files.internal("data/appconfig.json"));
+		} catch (Exception e) {
+			System.err.println("Could not load external config file. Use default config instead.");
+			appConfig = new AppConfiguration();
+			AppConfiguration.initConfig(appConfig);
+		}
 	}
 	
 	private void initGame() {
-		final Vector2 target = new Vector2(TARGET_POS_X, TARGET_POS_Y);
+		final Vector2 target = new Vector2(appConfig.TARGET_POS_X, appConfig.TARGET_POS_Y);
 		final MatingPool matingPool = new MatingPool(target);
 		population = new Population(matingPool);
-		population.generateRandomPopulation(POPULATION_SIZE);
+		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
 		
 	}
 	

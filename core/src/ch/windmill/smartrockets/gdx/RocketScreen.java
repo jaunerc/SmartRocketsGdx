@@ -24,7 +24,7 @@ public class RocketScreen implements Screen {
 	
 	private void initCamera() {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		camera.setToOrtho(false, game.appConfig.VIEWPORT_WIDTH, game.appConfig.VIEWPORT_HEIGHT);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class RocketScreen implements Screen {
 	public void render(float delta) {
 		clearScreen();
 		updateCamera();
-		game.updateRockets(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		game.updateRockets(game.appConfig.VIEWPORT_WIDTH, game.appConfig.VIEWPORT_HEIGHT);
 		renderWithSpriteBatch();
 	}
 	
