@@ -2,7 +2,7 @@
 # SmartRocketsGdx
 
 Original idea from http://www.blprnt.com/smartrockets/.
-This project is a java interpretation of Smart Rockets. The basic code concept is from the following javascript project.
-https://github.com/CodingTrain/Rainbow-Code/tree/master/CodingChallenges/CC_29_SmartRockets
+Javascript project https://github.com/CodingTrain/Rainbow-Code/tree/master/CodingChallenges/CC_29_SmartRockets
 
-This project uses the libGDX framework.
+This project is a java interpretation of Smart Rockets. The basic code concept is from the Rainbow-Code project.
+It uses the libGDX framework.
