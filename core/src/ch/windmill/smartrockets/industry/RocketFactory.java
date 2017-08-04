@@ -12,19 +12,13 @@ import ch.windmill.smartrockets.entities.Rocket;
 public class RocketFactory implements RocketFactoryInterface{
 	
 	private final static float MAX_FORCE = 0.2f;
-	private final static float START_POS_X = 400f;
+	private final static float START_POS_X = 500f;
 	private final static float START_POS_Y = 0f;
-	private final static int DNA_SIZE = 100;
+	private final static int DNA_SIZE = 50;
 	
-	private Random random;
 	private VectorFactory vectorFactory;
 	
 	public RocketFactory() {
-		this(new Random());
-	}
-	
-	public RocketFactory(final Random random) {
-		this.random = random;
 		vectorFactory = new VectorFactory(MAX_FORCE);
 	}
 
@@ -44,5 +38,10 @@ public class RocketFactory implements RocketFactoryInterface{
 			genes.add(vectorFactory.makeRandomVector());
 		}
 		return genes;
+	}
+
+	@Override
+	public Rocket makeRocketAtDefaultPosition(final Dna dna) {
+		return new Rocket(START_POS_X, START_POS_Y, dna);
 	}
 }

@@ -1,8 +1,10 @@
 package ch.windmill.smartrockets.gdx;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
 
 import ch.windmill.smartrockets.entities.MatingPool;
 import ch.windmill.smartrockets.entities.Population;
@@ -11,8 +13,8 @@ import ch.windmill.smartrockets.entities.PopulationInterface;
 public class SmartRocketsGame extends Game {
 	
 	private final static int POPULATION_SIZE = 10;
-	private final static float TARGET_POS_X = 400;
-	private final static float TARGET_POS_Y = 750;
+	private final static float TARGET_POS_X = 50;
+	private final static float TARGET_POS_Y = 50;
 	
 	public SpriteBatch batch;
 	
@@ -23,6 +25,15 @@ public class SmartRocketsGame extends Game {
 		batch = new SpriteBatch();
 		initGame();
 		startRocketScreen();
+		
+		
+		
+		Json json = new Json();
+		AppConfiguration acBefore = new AppConfiguration();
+		AppConfiguration.initConfig(acBefore);
+		String j = json.toJson(acBefore);
+		System.out.println(j);
+		AppConfiguration ac = json.fromJson(AppConfiguration.class, j);
 	}
 	
 	private void initGame() {

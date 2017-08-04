@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.badlogic.gdx.math.Vector2;
+
 import ch.windmill.smartrockets.entities.MatingPool;
 import ch.windmill.smartrockets.entities.Rocket;
 import ch.windmill.smartrockets.entities.RocketInterface;
@@ -17,7 +19,7 @@ public class MatingPoolTest {
 	 */
 	@Test
 	public void testGetRandomRocket() {
-		final MatingPool matingPool = new MatingPool();
+		final MatingPool matingPool = new MatingPool(new Vector2(10, 10));
 		final ArrayList<RocketInterface> rockets = new ArrayList<>();
 		rockets.add(new Rocket());
 		matingPool.fillPool(rockets);

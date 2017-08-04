@@ -11,8 +11,8 @@ import ch.windmill.smartrockets.entities.PopulationInterface;
 
 public class RocketScreen implements Screen {
 	
-	private final static int VIEWPORT_WIDTH = 800;
-	private final static int VIEWPORT_HEIGHT = 800;
+	private final static int VIEWPORT_WIDTH = 1000;
+	private final static int VIEWPORT_HEIGHT = 1000;
 	
 	private final SmartRocketsGame game;
 	private OrthographicCamera camera;

@@ -22,8 +22,17 @@ public class MatingPool implements MatingPoolInterface {
 	
 	@Override
 	public void fillPool(final List<RocketInterface> rockets) {
+		addRocketsBasedOnFitness(rockets);
+	}
+	
+	private void addRocketsBasedOnFitness(final List<RocketInterface> rockets) {
+		int rocketWeight = 0;
 		for(RocketInterface rocket : rockets) {
-			pool.add(rocket);
+			rocket.calcFitness(target);
+			rocketWeight = (int) (rocket.getFitness() * 1000);
+			for(int i = 0; i < rocketWeight; i++) {
+				pool.add(rocket);
+			}
 		}
 	}
 

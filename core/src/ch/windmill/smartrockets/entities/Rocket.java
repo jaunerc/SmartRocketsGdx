@@ -31,17 +31,19 @@ public class Rocket implements RocketInterface {
 		this(0, 0, new Dna());
 	}
 	
+	@Override
 	public boolean isCrashed() {
 		return crashed;
 	}
 	
+	@Override
 	public boolean isCompleted() {
 		return completed;
 	}
-
+	
 	@Override
-	public void setFitness(final float fitness) {
-		this.fitness = fitness;
+	public Dna getDna() {
+		return dna;
 	}
 
 	@Override
@@ -65,12 +67,14 @@ public class Rocket implements RocketInterface {
 	@Override
 	public void calcFitness(Vector2 target) {
 		final float distanceToTarget = position.dst(target);
+		System.out.println("My position: " + position.x + ", " + position.y);
+		System.out.println("dist to target: " + distanceToTarget);
 		fitness = 1 / distanceToTarget;
 		if(completed) {
 			fitness *= 10;
 		}
 		if(crashed) {
-			fitness /= 10;
+			//fitness /= 10;
 		}
 	}
 

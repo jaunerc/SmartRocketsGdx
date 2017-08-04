@@ -14,8 +14,8 @@ public class Population implements PopulationInterface {
 
 	private final static String TEXTURE_NAME = "rocket_tiny.png";
 	
-	private ArrayList<Rocket> rockets;
-	private ArrayList<Rocket> lastGeneration;
+	private ArrayList<RocketInterface> rockets;
+	private ArrayList<RocketInterface> lastGeneration;
 	private MatingPoolInterface matingPool;
 	private Texture rocketTexture;
 	
@@ -31,7 +31,18 @@ public class Population implements PopulationInterface {
 
 	@Override
 	public void evolve() {
-		
+		final RocketFactory factory = new RocketFactory();
+		RocketInterface child, parentA, parentB;
+		Dna childDna;
+		matingPool.fillPool(lastGeneration);
+		for(int i = 0; i < lastGeneration.size(); i++) {
+			parentA = matingPool.getRandomRocket();
+			parentB = matingPool.getRandomRocket();
+			childDna = Dna.crossover(parentA.getDna(), parentB.getDna());
+			child = factory.makeRocketAtDefaultPosition(childDna);
+			rockets.add(child);
+		}
+		lastGeneration.clear();
 	}
 
 	@Override
@@ -42,8 +53,8 @@ public class Population implements PopulationInterface {
 	}
 	
 	private void handleRocketUpdate(final float screenWidth, final float screenHeight) {
-		final Iterator<Rocket> iterator = rockets.iterator();
-		Rocket rocket;
+		final Iterator<RocketInterface> iterator = rockets.iterator();
+		RocketInterface rocket;
 		while(iterator.hasNext()) {
 			rocket = iterator.next();
 			rocket.update(screenWidth, screenHeight, rocketTexture);
@@ -81,7 +92,7 @@ public class Population implements PopulationInterface {
 	public void drawPopulation(final SpriteBatch batch) {
 		checkRocketTextureLoad();
 		Vector2 pos;
-		for(Rocket rocket : rockets) {
+		for(RocketInterface rocket : rockets) {
 			pos = rocket.getPos();
 			batch.draw(rocketTexture, pos.x, pos.y);
 		}
