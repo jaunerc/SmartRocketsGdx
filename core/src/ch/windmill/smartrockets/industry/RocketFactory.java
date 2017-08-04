@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import ch.windmill.smartrockets.entities.Dna;
 import ch.windmill.smartrockets.entities.Rocket;
+import ch.windmill.smartrockets.gdx.AppConfiguration;
 
 public class RocketFactory implements RocketFactoryInterface{
 	
@@ -17,15 +18,17 @@ public class RocketFactory implements RocketFactoryInterface{
 	private final static int DNA_SIZE = 50;
 	
 	private VectorFactory vectorFactory;
+	private AppConfiguration appConfig;
 	
 	public RocketFactory() {
 		vectorFactory = new VectorFactory(MAX_FORCE);
+		appConfig = AppConfiguration.fromConfigFile();
 	}
 
 	@Override
 	public Rocket makeRocketWithRandomDna() {
-		final Dna dna = new Dna(generateRandomGenes(DNA_SIZE));
-		final Rocket rocket = new Rocket(START_POS_X, START_POS_Y, dna);
+		final Dna dna = new Dna(generateRandomGenes(appConfig.DNA_SIZE));
+		final Rocket rocket = new Rocket(appConfig.ROCKET_START_POS_X, appConfig.ROCKET_START_POS_Y, dna);
 		return rocket;
 	}
 
@@ -42,6 +45,6 @@ public class RocketFactory implements RocketFactoryInterface{
 
 	@Override
 	public Rocket makeRocketAtDefaultPosition(final Dna dna) {
-		return new Rocket(START_POS_X, START_POS_Y, dna);
+		return new Rocket(appConfig.ROCKET_START_POS_X, appConfig.ROCKET_START_POS_Y, dna);
 	}
 }

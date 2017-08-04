@@ -13,20 +13,27 @@ import ch.windmill.smartrockets.industry.RocketFactory;
 public class Population implements PopulationInterface {
 
 	private final static String TEXTURE_NAME = "rocket_tiny.png";
-	
+
 	private ArrayList<RocketInterface> rockets;
 	private ArrayList<RocketInterface> lastGeneration;
 	private MatingPoolInterface matingPool;
 	private Texture rocketTexture;
-	
+	private Vector2 rocketTarget;
+
 	public Population() {
-		this(new MatingPool());
+		this(new MatingPool(), new Vector2());
 	}
-	
-	public Population(final MatingPoolInterface matingPool) {
+
+	public Population(final MatingPoolInterface matingPool, final Vector2 rocketTarget) {
 		this.matingPool = matingPool;
+		this.rocketTarget = rocketTarget;
 		rockets = new ArrayList<>();
 		lastGeneration = new ArrayList<>();
+	}
+	
+	@Override
+	public void setRocketTarget(final Vector2 rocketTarget) {
+		this.rocketTarget = rocketTarget;
 	}
 
 	@Override
@@ -35,7 +42,7 @@ public class Population implements PopulationInterface {
 		RocketInterface child, parentA, parentB;
 		Dna childDna;
 		matingPool.fillPool(lastGeneration);
-		for(int i = 0; i < lastGeneration.size(); i++) {
+		for (int i = 0; i < lastGeneration.size(); i++) {
 			parentA = matingPool.getRandomRocket();
 			parentB = matingPool.getRandomRocket();
 			childDna = Dna.crossover(parentA.getDna(), parentB.getDna());
@@ -51,39 +58,40 @@ public class Population implements PopulationInterface {
 		handleRocketUpdate(screenWidth, screenHeight);
 		handleGenerationDeath();
 	}
-	
+
 	private void handleRocketUpdate(final float screenWidth, final float screenHeight) {
 		final Iterator<RocketInterface> iterator = rockets.iterator();
 		RocketInterface rocket;
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			rocket = iterator.next();
 			rocket.update(screenWidth, screenHeight, rocketTexture);
-			if(rocket.isCrashed() || rocket.isCompleted()) {
+			rocket.handleTargetHit(rocketTarget);
+			if (rocket.isCrashed() || rocket.isCompleted() || rocket.isEndOfDna()) {
 				lastGeneration.add(rocket);
 				iterator.remove();
 			}
 		}
 	}
-	
+
 	private void handleGenerationDeath() {
-		if(rockets.size() == 0) {
+		if (rockets.size() == 0) {
 			evolve();
 		}
 	}
 
 	@Override
 	public void generateRandomPopulation(final int populationSize) {
-		if(populationSize <= 0) {
+		if (populationSize <= 0) {
 			throw new IllegalArgumentException("The population size must be greater than 0.");
 		}
 		rockets.clear();
 		lastGeneration.clear();
 		createRocketsWithRandomDna(populationSize);
 	}
-	
+
 	private void createRocketsWithRandomDna(final int populationSize) {
 		final RocketFactory factory = new RocketFactory();
-		for(int i = 0; i < populationSize; i++) {
+		for (int i = 0; i < populationSize; i++) {
 			rockets.add(factory.makeRocketWithRandomDna());
 		}
 	}
@@ -92,15 +100,16 @@ public class Population implements PopulationInterface {
 	public void drawPopulation(final SpriteBatch batch) {
 		checkRocketTextureLoad();
 		Vector2 pos;
-		for(RocketInterface rocket : rockets) {
+		for (RocketInterface rocket : rockets) {
 			pos = rocket.getPos();
 			batch.draw(rocketTexture, pos.x, pos.y);
 		}
 	}
 
 	private void checkRocketTextureLoad() {
-		if(rocketTexture == null) {
+		if (rocketTexture == null) {
 			rocketTexture = new Texture(Gdx.files.internal(TEXTURE_NAME));
 		}
 	}
+
 }

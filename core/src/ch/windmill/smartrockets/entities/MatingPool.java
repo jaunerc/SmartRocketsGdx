@@ -8,29 +8,31 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MatingPool implements MatingPoolInterface {
 
+	private int screenSize;
 	private ArrayList<RocketInterface> pool;
 	private Vector2 target;
-	
+
 	public MatingPool() {
-		this(new Vector2());
+		this(new Vector2(), 0);
 	}
-	
-	public MatingPool(final Vector2 target){
+
+	public MatingPool(final Vector2 target, final int screenSize) {
 		this.target = target;
+		this.screenSize = screenSize;
 		pool = new ArrayList<>();
 	}
-	
+
 	@Override
 	public void fillPool(final List<RocketInterface> rockets) {
 		addRocketsBasedOnFitness(rockets);
 	}
-	
+
 	private void addRocketsBasedOnFitness(final List<RocketInterface> rockets) {
 		int rocketWeight = 0;
-		for(RocketInterface rocket : rockets) {
+		for (RocketInterface rocket : rockets) {
 			rocket.calcFitness(target);
-			rocketWeight = (int) (rocket.getFitness() * 1000);
-			for(int i = 0; i < rocketWeight; i++) {
+			rocketWeight = (int) (rocket.getFitness() * screenSize);
+			for (int i = 0; i < rocketWeight; i++) {
 				pool.add(rocket);
 			}
 		}

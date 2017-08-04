@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 import org.junit.Test;
@@ -81,10 +82,10 @@ public class DnaTest {
 	/**
 	 * {@link Dna#getCurrentGene()}
 	 */
-	@Test
+	@Test(expected = NoSuchElementException.class)
 	public void testGetCurrentGeneFromEmptyList() {
 		final ArrayList<Vector2> genes = generateRandomGenes(0);
 		final Dna dna = new Dna(genes);
-		assertNull(dna.getCurrentGene());
+		dna.getCurrentGene();
 	}
 }

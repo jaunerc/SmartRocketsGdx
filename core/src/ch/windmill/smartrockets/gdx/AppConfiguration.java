@@ -1,5 +1,8 @@
 package ch.windmill.smartrockets.gdx;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Json;
+
 public class AppConfiguration {
 
 	public int VIEWPORT_WIDTH;
@@ -19,7 +22,20 @@ public class AppConfiguration {
 		conf.setTARGET_POS_X(400f);
 		conf.setTARGET_POS_Y(400f);
 		conf.setROCKET_START_POS_X(400f);
-		conf.setROCKET_START_POS_Y(0f);
+		conf.setROCKET_START_POS_Y(10f);
+	}
+	
+	public static AppConfiguration fromConfigFile() {
+		final Json json = new Json();
+		AppConfiguration appConfig;
+		try {
+			appConfig = json.fromJson(AppConfiguration.class, Gdx.files.internal("data/appconfig.json"));
+		} catch (Exception e) {
+			System.err.println("Could not load external config file. Use default config instead.");
+			appConfig = new AppConfiguration();
+			AppConfiguration.initConfig(appConfig);
+		}
+		return appConfig;
 	}
 	
 	public AppConfiguration() {}

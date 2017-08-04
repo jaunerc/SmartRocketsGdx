@@ -3,7 +3,6 @@ package ch.windmill.smartrockets.entities;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
@@ -73,14 +72,7 @@ public class Dna implements DnaInterface {
 	}
 	
 	private Vector2 nextVectorFromIterator() {
-		Vector2 currentVector = null;
-		if(geneIterator.hasNext()) {
-			currentVector = geneIterator.next();
-		} else if(genes.size() > 0) {
-			geneIterator = genes.iterator();
-			currentVector = geneIterator.next();
-		}
-		return currentVector;
+		return geneIterator.next();
 	}
 
 	@Override

@@ -11,17 +11,6 @@ import ch.windmill.smartrockets.entities.Rocket;
 public class RocketTest {
 
 	/**
-	 * {@link Rocket#handleCollision(Vector2)}
-	 */
-	@Test
-	public void testHandleCollision() {
-		final Rocket rocket = new Rocket();
-		rocket.handleCollision(new Vector2());
-		final Vector2 position = rocket.getPos();
-		assertTrue(position.x >= 0 && position.y >= 0);
-	}
-
-	/**
 	 * {@link Rocket#calcFitness(Vector2)}
 	 */
 	@Test
@@ -31,7 +20,7 @@ public class RocketTest {
 		System.out.println("fitness: " + rocket.getFitness());
 		assertTrue(rocket.getFitness() >= 0.0f);
 	}
-	
+
 	/**
 	 * {@link Rocket#calcFitness(Vector2)}
 	 */

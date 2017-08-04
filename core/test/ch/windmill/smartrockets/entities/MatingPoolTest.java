@@ -19,7 +19,7 @@ public class MatingPoolTest {
 	 */
 	@Test
 	public void testGetRandomRocket() {
-		final MatingPool matingPool = new MatingPool(new Vector2(10, 10));
+		final MatingPool matingPool = new MatingPool(new Vector2(10, 10), 100);
 		final ArrayList<RocketInterface> rockets = new ArrayList<>();
 		rockets.add(new Rocket());
 		matingPool.fillPool(rockets);

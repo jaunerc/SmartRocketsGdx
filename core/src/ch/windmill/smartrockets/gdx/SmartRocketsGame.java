@@ -1,10 +1,8 @@
 package ch.windmill.smartrockets.gdx;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Json;
 
 import ch.windmill.smartrockets.entities.MatingPool;
 import ch.windmill.smartrockets.entities.Population;
@@ -30,20 +28,13 @@ public class SmartRocketsGame extends Game {
 	}
 	
 	private void loadAppConfig() {
-		final Json json = new Json();
-		try {
-			appConfig = json.fromJson(AppConfiguration.class, Gdx.files.internal("data/appconfig.json"));
-		} catch (Exception e) {
-			System.err.println("Could not load external config file. Use default config instead.");
-			appConfig = new AppConfiguration();
-			AppConfiguration.initConfig(appConfig);
-		}
+		appConfig = AppConfiguration.fromConfigFile();
 	}
 	
 	private void initGame() {
 		final Vector2 target = new Vector2(appConfig.TARGET_POS_X, appConfig.TARGET_POS_Y);
-		final MatingPool matingPool = new MatingPool(target);
-		population = new Population(matingPool);
+		final MatingPool matingPool = new MatingPool(target, appConfig.VIEWPORT_WIDTH);
+		population = new Population(matingPool, target);
 		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
 		
 	}
