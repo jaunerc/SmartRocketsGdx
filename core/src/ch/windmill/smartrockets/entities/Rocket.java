@@ -72,7 +72,7 @@ public class Rocket implements RocketInterface {
 			fitness *= 10;
 		}
 		if (crashed) {
-			fitness /= 10;
+			fitness /= 2;
 		}
 	}
 

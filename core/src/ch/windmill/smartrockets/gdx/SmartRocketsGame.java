@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import ch.windmill.smartrockets.entities.MatingPool;
 import ch.windmill.smartrockets.entities.Population;
 import ch.windmill.smartrockets.entities.PopulationInterface;
+import ch.windmill.smartrockets.entities.RocketTarget;
 
 public class SmartRocketsGame extends Game {
 	
@@ -18,6 +19,7 @@ public class SmartRocketsGame extends Game {
 	public AppConfiguration appConfig;
 	
 	private PopulationInterface population;
+	private RocketTarget rocketTarget;
 	
 	@Override
 	public void create () {
@@ -36,7 +38,8 @@ public class SmartRocketsGame extends Game {
 		final MatingPool matingPool = new MatingPool(target, appConfig.VIEWPORT_WIDTH);
 		population = new Population(matingPool, target);
 		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
-		
+		rocketTarget = new RocketTarget(target);
+		rocketTarget.initTexture();
 	}
 	
 	private void startRocketScreen() {
@@ -60,5 +63,9 @@ public class SmartRocketsGame extends Game {
 	
 	public void renderRockets() {
 		population.drawPopulation(batch);
+	}
+	
+	public void renderTarget() {
+		rocketTarget.draw(batch);
 	}
 }
