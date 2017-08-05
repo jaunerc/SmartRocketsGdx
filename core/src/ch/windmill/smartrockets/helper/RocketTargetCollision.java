@@ -2,6 +2,7 @@ package ch.windmill.smartrockets.helper;
 
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.entities.Rocket;
 import ch.windmill.smartrockets.entities.RocketInterface;
 import ch.windmill.smartrockets.entities.RocketTarget;
 
@@ -12,6 +13,10 @@ public class RocketTargetCollision {
 	private Vector2 rocketsCenter;
 	private Vector2 rocketsUpperRightCorner;
 	private float targetsRadius;
+	
+	public RocketTargetCollision() {
+		this(new Rocket(), new RocketTarget(new Vector2()));
+	}
 
 	public RocketTargetCollision(RocketInterface rocket, RocketTarget target) {
 		this.rocket = rocket;
@@ -19,6 +24,14 @@ public class RocketTargetCollision {
 		rocketsCenter = new Vector2();
 		rocketsUpperRightCorner = new Vector2();
 		targetsRadius = 0f;
+	}
+
+	public void setRocket(RocketInterface rocket) {
+		this.rocket = rocket;
+	}
+
+	public void setTarget(RocketTarget target) {
+		this.target = target;
 	}
 
 	public void calcExtraRocketVectors(final float rocketWidth, final float rocketHeight) {

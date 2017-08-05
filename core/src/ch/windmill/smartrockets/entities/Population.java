@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.helper.RocketTargetCollision;
 import ch.windmill.smartrockets.industry.RocketFactory;
 
 public class Population implements PopulationInterface {
@@ -18,38 +19,34 @@ public class Population implements PopulationInterface {
 	private ArrayList<RocketInterface> lastGeneration;
 	private MatingPoolInterface matingPool;
 	private Texture rocketTexture;
-	private Vector2 rocketTarget;
+	private RocketTargetCollision collision;
 
 	public Population() {
-		this(new MatingPool(), new Vector2());
-	}
-
-	public Population(final MatingPoolInterface matingPool, final Vector2 rocketTarget) {
-		this.matingPool = matingPool;
-		this.rocketTarget = rocketTarget;
-		rockets = new ArrayList<>();
-		lastGeneration = new ArrayList<>();
+		this(new MatingPool(), new RocketTargetCollision());
 	}
 	
-	@Override
-	public void setRocketTarget(final Vector2 rocketTarget) {
-		this.rocketTarget = rocketTarget;
+	public Population(final MatingPoolInterface matingPool, final RocketTargetCollision collision) {
+		this.matingPool = matingPool;
+		this.collision = collision;
+		rockets = new ArrayList<>();
+		lastGeneration = new ArrayList<>();
 	}
 
 	@Override
 	public void evolve() {
-		final RocketFactory factory = new RocketFactory();
-		RocketInterface child, parentA, parentB;
-		Dna childDna;
 		matingPool.fillPool(lastGeneration);
 		for (int i = 0; i < lastGeneration.size(); i++) {
-			parentA = matingPool.getRandomRocket();
-			parentB = matingPool.getRandomRocket();
-			childDna = Dna.crossover(parentA.getDna(), parentB.getDna());
-			child = factory.makeRocketAtDefaultPosition(childDna);
-			rockets.add(child);
+			rockets.add(selectDnaGenes());
 		}
 		lastGeneration.clear();
+	}
+	
+	private RocketInterface selectDnaGenes() {
+		final RocketFactory factory = new RocketFactory();
+		final RocketInterface parentA = matingPool.getRandomRocket();
+		final RocketInterface parentB = matingPool.getRandomRocket();
+		final Dna childDna = Dna.crossover(parentA.getDna(), parentB.getDna());
+		return factory.makeRocketAtDefaultPosition(childDna);
 	}
 
 	@Override
@@ -65,11 +62,19 @@ public class Population implements PopulationInterface {
 		while (iterator.hasNext()) {
 			rocket = iterator.next();
 			rocket.update(screenWidth, screenHeight, rocketTexture);
-			rocket.handleTargetHit(rocketTarget);
+			handleTargetCollision(rocket);
 			if (rocket.isCrashed() || rocket.isCompleted() || rocket.isEndOfDna()) {
 				lastGeneration.add(rocket);
 				iterator.remove();
 			}
+		}
+	}
+	
+	private void handleTargetCollision(final RocketInterface rocket) {
+		collision.setRocket(rocket);
+		collision.calcExtraRocketVectors(rocketTexture.getWidth(), rocketTexture.getHeight());
+		if(collision.isCollided()) {
+			rocket.handleTargetHit();
 		}
 	}
 

@@ -8,6 +8,7 @@ import ch.windmill.smartrockets.entities.MatingPool;
 import ch.windmill.smartrockets.entities.Population;
 import ch.windmill.smartrockets.entities.PopulationInterface;
 import ch.windmill.smartrockets.entities.RocketTarget;
+import ch.windmill.smartrockets.helper.RocketTargetCollision;
 
 public class SmartRocketsGame extends Game {
 	
@@ -36,10 +37,12 @@ public class SmartRocketsGame extends Game {
 	private void initGame() {
 		final Vector2 target = new Vector2(appConfig.TARGET_POS_X, appConfig.TARGET_POS_Y);
 		final MatingPool matingPool = new MatingPool(target, appConfig.VIEWPORT_WIDTH);
-		population = new Population(matingPool, target);
-		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
+		final RocketTargetCollision collision = new RocketTargetCollision();
 		rocketTarget = new RocketTarget(target);
 		rocketTarget.initTexture();
+		collision.setTarget(rocketTarget);
+		population = new Population(matingPool, collision);
+		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
 	}
 	
 	private void startRocketScreen() {

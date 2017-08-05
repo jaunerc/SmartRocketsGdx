@@ -15,7 +15,7 @@ public interface RocketInterface {
 	 * Handles the hit with the rocket target.
 	 * @param target
 	 */
-	void handleTargetHit(Vector2 target);
+	void handleTargetHit();
 
 	/**
 	 * Calculates the fitness value of this rocket.

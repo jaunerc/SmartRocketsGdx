@@ -31,6 +31,4 @@ public interface PopulationInterface {
 	 *            The number of rockets.
 	 */
 	void generateRandomPopulation(int populationSize);
-	
-	void setRocketTarget(Vector2 rocketTarget);
 }

@@ -116,11 +116,8 @@ public class Rocket implements RocketInterface {
 	}
 
 	@Override
-	public void handleTargetHit(final Vector2 target) {
-		final float distanceToTarget = position.dst(target);
-		if (distanceToTarget < 20) {
-			completed = true;
-		}
+	public void handleTargetHit() {
+		completed = true;
 	}
 
 }
