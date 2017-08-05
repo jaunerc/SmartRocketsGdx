@@ -6,6 +6,9 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * This class represents a mating pool for Rockets.
+ */
 public class MatingPool implements MatingPoolInterface {
 
 	private int screenSize;

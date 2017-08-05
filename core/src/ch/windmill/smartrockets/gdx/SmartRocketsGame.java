@@ -41,6 +41,7 @@ public class SmartRocketsGame extends Game {
 		rocketTarget = new RocketTarget(target);
 		rocketTarget.initTexture();
 		collision.setTarget(rocketTarget);
+		collision.setTargetsRadius(rocketTarget.getRadius());
 		population = new Population(matingPool, collision);
 		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
 	}

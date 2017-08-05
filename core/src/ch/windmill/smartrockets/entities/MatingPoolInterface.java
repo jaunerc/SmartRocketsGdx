@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * This interface provides methods to manage a mating pool. The mating pool
+ * considers the fitness of rockets to affect their probability by choosing from the pool.
+ */
 public interface MatingPoolInterface {
 
 	/**

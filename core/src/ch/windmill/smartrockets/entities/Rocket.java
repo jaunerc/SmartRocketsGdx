@@ -5,9 +5,11 @@ import java.util.NoSuchElementException;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * This class represents a smart rocket.
+ */
 public class Rocket implements RocketInterface {
 
-	private final static int TARGET_BOUNDARY = 10;
 	private final static float MAX_VELOCITY = 4f;
 
 	private Vector2 position;

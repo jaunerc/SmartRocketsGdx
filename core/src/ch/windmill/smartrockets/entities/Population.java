@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 import ch.windmill.smartrockets.helper.RocketTargetCollision;
 import ch.windmill.smartrockets.industry.RocketFactory;
 
+/**
+ * This class represents a population of rockets.
+ */
 public class Population implements PopulationInterface {
 
 	private final static String TEXTURE_NAME = "rocket_tiny.png";
@@ -24,7 +27,7 @@ public class Population implements PopulationInterface {
 	public Population() {
 		this(new MatingPool(), new RocketTargetCollision());
 	}
-	
+
 	public Population(final MatingPoolInterface matingPool, final RocketTargetCollision collision) {
 		this.matingPool = matingPool;
 		this.collision = collision;
@@ -40,7 +43,7 @@ public class Population implements PopulationInterface {
 		}
 		lastGeneration.clear();
 	}
-	
+
 	private RocketInterface selectDnaGenes() {
 		final RocketFactory factory = new RocketFactory();
 		final RocketInterface parentA = matingPool.getRandomRocket();
@@ -63,18 +66,22 @@ public class Population implements PopulationInterface {
 			rocket = iterator.next();
 			rocket.update(screenWidth, screenHeight, rocketTexture);
 			handleTargetCollision(rocket);
-			if (rocket.isCrashed() || rocket.isCompleted() || rocket.isEndOfDna()) {
-				lastGeneration.add(rocket);
-				iterator.remove();
-			}
+			removeRocketIfDone(rocket, iterator);
 		}
 	}
-	
+
 	private void handleTargetCollision(final RocketInterface rocket) {
 		collision.setRocket(rocket);
 		collision.calcExtraRocketVectors(rocketTexture.getWidth(), rocketTexture.getHeight());
-		if(collision.isCollided()) {
+		if (collision.isCollided()) {
 			rocket.handleTargetHit();
+		}
+	}
+
+	private void removeRocketIfDone(final RocketInterface rocket, final Iterator<RocketInterface> iterator) {
+		if (rocket.isCrashed() || rocket.isCompleted() || rocket.isEndOfDna()) {
+			lastGeneration.add(rocket);
+			iterator.remove();
 		}
 	}
 

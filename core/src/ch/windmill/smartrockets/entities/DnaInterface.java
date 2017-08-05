@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * This interface provides methods for a rocket dna. A dna holds a list of genes which are vectors.
+ */
 public interface DnaInterface {
 	
 	/**

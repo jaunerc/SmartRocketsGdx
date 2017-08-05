@@ -1,8 +1,12 @@
 package ch.windmill.smartrockets.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
+/**
+ * This interface provides methods for a rocket population. It holds rockets and
+ * manages physical updates and drawing for them. It also handles the evolution
+ * of rockets.
+ */
 public interface PopulationInterface {
 
 	/**
