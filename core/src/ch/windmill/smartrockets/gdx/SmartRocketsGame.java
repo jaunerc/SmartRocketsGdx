@@ -1,6 +1,8 @@
 package ch.windmill.smartrockets.gdx;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,6 +19,7 @@ public class SmartRocketsGame extends Game {
 
 	private PopulationInterface population;
 	private RocketTarget rocketTarget;
+	private InfoText infoText;
 
 	@Override
 	public void create() {
@@ -34,6 +37,7 @@ public class SmartRocketsGame extends Game {
 		final Vector2 target = new Vector2(appConfig.TARGET_POS_X, appConfig.TARGET_POS_Y);
 		final MatingPool matingPool = new MatingPool(target, appConfig.VIEWPORT_WIDTH);
 		final SpriteManager spriteManager = new SpriteManager();
+		final BitmapFont font = new BitmapFont();
 		
 		rocketTarget = new RocketTarget(target);
 		rocketTarget.initTexture();
@@ -43,6 +47,11 @@ public class SmartRocketsGame extends Game {
 		
 		population = new Population(matingPool, spriteManager);
 		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
+		
+		font.setColor(Color.WHITE);
+		font.getData().setScale(3);
+		infoText = new InfoText(appConfig.POPULATION_SIZE, appConfig.DNA_SIZE);
+		infoText.setFont(font);
 	}
 
 	private void startRocketScreen() {
@@ -70,5 +79,9 @@ public class SmartRocketsGame extends Game {
 
 	public void renderTarget() {
 		rocketTarget.draw(batch);
+	}
+	
+	public void renderInfoText() {
+		infoText.draw(batch, appConfig.VIEWPORT_WIDTH, appConfig.VIEWPORT_HEIGHT);
 	}
 }

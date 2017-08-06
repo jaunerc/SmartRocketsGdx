@@ -56,6 +56,7 @@ public class RocketScreen implements Screen {
 		game.batch.begin();
 		game.renderTarget();
 		game.renderRockets();
+		game.renderInfoText();
 		game.batch.end();
 	}
 
