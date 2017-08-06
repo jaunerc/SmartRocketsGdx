@@ -147,7 +147,8 @@ public class Population implements PopulationInterface {
 	 */
 	private void configureSpriteBeforeDrawing(final Sprite sprite, final RocketInterface rocket) {
 		sprite.setPosition(rocket.getPos().x, rocket.getPos().y);
-		sprite.setRotation(rocket.getVelocity().angle() - ROTATION_CORRECTION);
+		sprite.setRotation(0);
+		sprite.rotate(rocket.getVelocity().angle() - ROTATION_CORRECTION);
 	}
 
 	private void checkRocketTextureLoad() {
