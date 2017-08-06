@@ -7,9 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
-import ch.windmill.smartrockets.helper.RocketTargetCollision;
 import ch.windmill.smartrockets.helper.SpriteManager;
 import ch.windmill.smartrockets.industry.RocketFactory;
 
@@ -19,6 +17,7 @@ import ch.windmill.smartrockets.industry.RocketFactory;
 public class Population implements PopulationInterface {
 
 	private final static String TEXTURE_NAME = "rocket_tiny.png";
+	private final static int ROTATION_CORRECTION = 45;
 
 	private ArrayList<RocketInterface> rockets;
 	private ArrayList<RocketInterface> lastGeneration;
@@ -29,7 +28,7 @@ public class Population implements PopulationInterface {
 	public Population() {
 		this(new MatingPool(), new SpriteManager());
 	}
-	
+
 	public Population(final MatingPoolInterface matingPool, final SpriteManager spriteManager) {
 		this.matingPool = matingPool;
 		this.spriteManager = spriteManager;
@@ -77,17 +76,17 @@ public class Population implements PopulationInterface {
 			rocket.handleTargetHit();
 		}
 	}
-	
+
 	private boolean isCollidedWithTarget(final RocketInterface rocket) {
 		boolean result = false;
 		final Sprite rocketSprite = spriteManager.getRocketSprite();
 		final Sprite targetSprite = spriteManager.getTargetSprite();
 		rocketSprite.setPosition(rocket.getPos().x, rocket.getPos().y);
-		
-		if(rocketSprite.getBoundingRectangle().overlaps(targetSprite.getBoundingRectangle())) {
+
+		if (rocketSprite.getBoundingRectangle().overlaps(targetSprite.getBoundingRectangle())) {
 			result = true;
 		}
-		
+
 		return result;
 	}
 
@@ -124,14 +123,31 @@ public class Population implements PopulationInterface {
 	@Override
 	public void drawPopulation(final SpriteBatch batch) {
 		checkRocketTextureLoad();
-		Sprite sprite = new Sprite(rocketTexture);
-		Vector2 pos;
 		for (RocketInterface rocket : rockets) {
-			pos = rocket.getPos();
-			sprite.setPosition(pos.x, pos.y);
-			sprite.setRotation(rocket.getVelocity().angle() -45);
-			sprite.draw(batch);
+			drawRocketSprite(batch, rocket);
 		}
+	}
+
+	private void drawRocketSprite(final SpriteBatch batch, final RocketInterface rocket) {
+		final Sprite sprite = spriteManager.getRocketSprite();
+		configureSpriteBeforeDrawing(sprite, rocket);
+		sprite.draw(batch);
+	}
+
+	/**
+	 * This method sets the position and rotation values of the given sprite.
+	 * The rotation is based on the velocity vector. That value will be
+	 * corrected by 45 degrees so that the rocket texture has the correct
+	 * direction.
+	 * 
+	 * @param sprite
+	 *            To configure.
+	 * @param rocket
+	 *            The rocket which holds the position and velocity.
+	 */
+	private void configureSpriteBeforeDrawing(final Sprite sprite, final RocketInterface rocket) {
+		sprite.setPosition(rocket.getPos().x, rocket.getPos().y);
+		sprite.setRotation(rocket.getVelocity().angle() - ROTATION_CORRECTION);
 	}
 
 	private void checkRocketTextureLoad() {
