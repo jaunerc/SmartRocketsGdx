@@ -5,10 +5,12 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import ch.windmill.smartrockets.helper.RocketTargetCollision;
+import ch.windmill.smartrockets.helper.SpriteManager;
 import ch.windmill.smartrockets.industry.RocketFactory;
 
 /**
@@ -22,15 +24,15 @@ public class Population implements PopulationInterface {
 	private ArrayList<RocketInterface> lastGeneration;
 	private MatingPoolInterface matingPool;
 	private Texture rocketTexture;
-	private RocketTargetCollision collision;
+	private SpriteManager spriteManager;
 
 	public Population() {
-		this(new MatingPool(), new RocketTargetCollision());
+		this(new MatingPool(), new SpriteManager());
 	}
-
-	public Population(final MatingPoolInterface matingPool, final RocketTargetCollision collision) {
+	
+	public Population(final MatingPoolInterface matingPool, final SpriteManager spriteManager) {
 		this.matingPool = matingPool;
-		this.collision = collision;
+		this.spriteManager = spriteManager;
 		rockets = new ArrayList<>();
 		lastGeneration = new ArrayList<>();
 	}
@@ -71,11 +73,22 @@ public class Population implements PopulationInterface {
 	}
 
 	private void handleTargetCollision(final RocketInterface rocket) {
-		collision.setRocket(rocket);
-		collision.calcExtraRocketVectors(rocketTexture.getWidth(), rocketTexture.getHeight());
-		if (collision.isCollided()) {
+		if (isCollidedWithTarget(rocket)) {
 			rocket.handleTargetHit();
 		}
+	}
+	
+	private boolean isCollidedWithTarget(final RocketInterface rocket) {
+		boolean result = false;
+		final Sprite rocketSprite = spriteManager.getRocketSprite();
+		final Sprite targetSprite = spriteManager.getTargetSprite();
+		rocketSprite.setPosition(rocket.getPos().x, rocket.getPos().y);
+		
+		if(rocketSprite.getBoundingRectangle().overlaps(targetSprite.getBoundingRectangle())) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 	private void removeRocketIfDone(final RocketInterface rocket, final Iterator<RocketInterface> iterator) {
@@ -111,16 +124,20 @@ public class Population implements PopulationInterface {
 	@Override
 	public void drawPopulation(final SpriteBatch batch) {
 		checkRocketTextureLoad();
+		Sprite sprite = new Sprite(rocketTexture);
 		Vector2 pos;
 		for (RocketInterface rocket : rockets) {
 			pos = rocket.getPos();
-			batch.draw(rocketTexture, pos.x, pos.y);
+			sprite.setPosition(pos.x, pos.y);
+			sprite.setRotation(rocket.getVelocity().angle() -45);
+			sprite.draw(batch);
 		}
 	}
 
 	private void checkRocketTextureLoad() {
 		if (rocketTexture == null) {
 			rocketTexture = new Texture(Gdx.files.internal(TEXTURE_NAME));
+			spriteManager.createRocketSprite(rocketTexture);
 		}
 	}
 

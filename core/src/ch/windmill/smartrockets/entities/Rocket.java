@@ -67,6 +67,11 @@ public class Rocket implements RocketInterface {
 	}
 
 	@Override
+	public Vector2 getVelocity() {
+		return velocity;
+	}
+
+	@Override
 	public void calcFitness(final Vector2 target) {
 		final float distanceToTarget = position.dst(target);
 		fitness = 1 / distanceToTarget;

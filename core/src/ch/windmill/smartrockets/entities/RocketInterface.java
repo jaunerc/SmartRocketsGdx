@@ -31,6 +31,8 @@ public interface RocketInterface {
 	float getFitness();
 
 	Vector2 getPos();
+	
+	Vector2 getVelocity();
 
 	Dna getDna();
 
