@@ -24,6 +24,7 @@ public class Population implements PopulationInterface {
 	private MatingPoolInterface matingPool;
 	private Texture rocketTexture;
 	private SpriteManager spriteManager;
+	private int generationCount;
 
 	public Population() {
 		this(new MatingPool(), new SpriteManager());
@@ -34,6 +35,12 @@ public class Population implements PopulationInterface {
 		this.spriteManager = spriteManager;
 		rockets = new ArrayList<>();
 		lastGeneration = new ArrayList<>();
+		generationCount = 0;
+	}
+
+	@Override
+	public int getGenerationNumber() {
+		return generationCount;
 	}
 
 	@Override
@@ -43,6 +50,7 @@ public class Population implements PopulationInterface {
 			rockets.add(selectDnaGenes());
 		}
 		lastGeneration.clear();
+		generationCount++;
 	}
 
 	private RocketInterface selectDnaGenes() {
@@ -52,7 +60,7 @@ public class Population implements PopulationInterface {
 		final Dna childDna = Dna.crossover(parentA.getDna(), parentB.getDna());
 		return factory.makeRocketAtDefaultPosition(childDna);
 	}
-
+	
 	@Override
 	public void updatePopulation(final float screenWidth, final float screenHeight) {
 		checkRocketTextureLoad();
@@ -111,6 +119,7 @@ public class Population implements PopulationInterface {
 		rockets.clear();
 		lastGeneration.clear();
 		createRocketsWithRandomDna(populationSize);
+		generationCount = 1;
 	}
 
 	private void createRocketsWithRandomDna(final int populationSize) {

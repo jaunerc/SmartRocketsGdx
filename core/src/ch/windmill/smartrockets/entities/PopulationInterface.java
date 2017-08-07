@@ -35,4 +35,10 @@ public interface PopulationInterface {
 	 *            The number of rockets.
 	 */
 	void generateRandomPopulation(int populationSize);
+	
+	/**
+	 * Gets the count of generations.
+	 * @return Generation count.
+	 */
+	int getGenerationNumber();
 }

@@ -82,6 +82,7 @@ public class SmartRocketsGame extends Game {
 	}
 	
 	public void renderInfoText() {
+		infoText.makeGenrationInfo(population.getGenerationNumber());
 		infoText.draw(batch, appConfig.VIEWPORT_WIDTH, appConfig.VIEWPORT_HEIGHT);
 	}
 }
