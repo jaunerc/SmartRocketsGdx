@@ -7,3 +7,5 @@ Javascript project https://github.com/CodingTrain/Rainbow-Code/tree/master/Codin
 
 This project is a java interpretation of Smart Rockets. The basic code concept is from the Rainbow-Code project.
 It uses the libGDX framework.
+
+![Screenshot](https://github.com/jaunerc/SmartRocketsGdx/blob/master/doc/screenshot.png)
