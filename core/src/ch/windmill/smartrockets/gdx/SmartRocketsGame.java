@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.entities.Barrier;
 import ch.windmill.smartrockets.entities.MatingPool;
 import ch.windmill.smartrockets.entities.Population;
 import ch.windmill.smartrockets.entities.PopulationInterface;
@@ -20,6 +21,7 @@ public class SmartRocketsGame extends Game {
 	private PopulationInterface population;
 	private RocketTarget rocketTarget;
 	private InfoText infoText;
+	private Barrier barrier;
 
 	@Override
 	public void create() {
@@ -41,6 +43,9 @@ public class SmartRocketsGame extends Game {
 		
 		rocketTarget = new RocketTarget(target);
 		rocketTarget.initTexture();
+		
+		barrier = new Barrier(new Vector2(400, 600));
+		barrier.initTexture();
 		
 		spriteManager.createTargetSprite(rocketTarget.getTexture());
 		spriteManager.setTargetSpritePosition(rocketTarget.getCenterPosition());
@@ -79,6 +84,10 @@ public class SmartRocketsGame extends Game {
 
 	public void renderTarget() {
 		rocketTarget.draw(batch);
+	}
+	
+	public void renderBarrier() {
+		barrier.draw(batch);
 	}
 	
 	public void renderInfoText() {
