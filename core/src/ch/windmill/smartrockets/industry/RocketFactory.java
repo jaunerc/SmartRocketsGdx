@@ -12,10 +12,7 @@ import ch.windmill.smartrockets.gdx.AppConfiguration;
 
 public class RocketFactory implements RocketFactoryInterface{
 	
-	private final static float MAX_FORCE = 0.2f;
-	private final static float START_POS_X = 500f;
-	private final static float START_POS_Y = 0f;
-	private final static int DNA_SIZE = 50;
+	private final static float MAX_FORCE = 0.4f;
 	
 	private VectorFactory vectorFactory;
 	private AppConfiguration appConfig;

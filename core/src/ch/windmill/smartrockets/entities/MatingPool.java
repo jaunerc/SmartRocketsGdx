@@ -32,9 +32,23 @@ public class MatingPool implements MatingPoolInterface {
 
 	private void addRocketsBasedOnFitness(final List<RocketInterface> rockets) {
 		int rocketWeight = 0;
-		for (RocketInterface rocket : rockets) {
+		float maxFitness = 0;
+		for(RocketInterface rocket : rockets) {
 			rocket.calcFitness(target);
-			rocketWeight = (int) (rocket.getFitness() * screenSize);
+			if(rocket.getFitness() > maxFitness) {
+				maxFitness = rocket.getFitness();
+			}
+		}
+		
+		for(RocketInterface rocket : rockets) {
+			rocket.setFitness(rocket.getFitness() / maxFitness);
+			System.out.println("current fitness: " + rocket.getFitness());
+		}
+		System.out.println("maxFitness: " + maxFitness);
+		
+		for (RocketInterface rocket : rockets) {
+			
+			rocketWeight = (int) (rocket.getFitness() * 100);
 			for (int i = 0; i < rocketWeight; i++) {
 				pool.add(rocket);
 			}

@@ -11,15 +11,18 @@ public class SpriteManager {
 
 	private Sprite rocketSprite;
 	private Sprite targetSprite;
+	private Sprite barrierSprite;
 	
 	public SpriteManager() {
 		rocketSprite = null;
 		targetSprite = null;
+		barrierSprite = null;
 	}
 	
-	public SpriteManager(final Texture rocketTexture, final Texture targetTexture) {
+	public SpriteManager(final Texture rocketTexture, final Texture targetTexture, final Texture barrierTexture) {
 		rocketSprite = new Sprite(rocketTexture);
 		targetSprite = new Sprite(targetTexture);
+		barrierSprite  = new Sprite(barrierTexture);
 	}
 
 	public Sprite getRocketSprite() {
@@ -30,6 +33,14 @@ public class SpriteManager {
 		return targetSprite;
 	}
 	
+	public Sprite getBarrierSprite() {
+		return barrierSprite;
+	}
+	
+	public void setBarrierSprite(Sprite barrierSprite) {
+		this.barrierSprite = barrierSprite;
+	}
+
 	public void createRocketSprite(final Texture rocketTexture) {
 		rocketSprite = new Sprite(rocketTexture);
 	}

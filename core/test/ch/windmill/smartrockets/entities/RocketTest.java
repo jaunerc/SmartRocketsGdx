@@ -29,6 +29,6 @@ public class RocketTest {
 		final Rocket rocket = new Rocket(100, 50, new Dna());
 		rocket.calcFitness(new Vector2(100, 100));
 		System.out.println("fitness: " + rocket.getFitness());
-		assertEquals((1f / 50), rocket.getFitness(), 0.01f);
+		assertEquals((1 / 50f), rocket.getFitness(), 0.01f);
 	}
 }

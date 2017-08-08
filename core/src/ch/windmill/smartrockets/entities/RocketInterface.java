@@ -20,6 +20,8 @@ public interface RocketInterface {
 	 * @param target
 	 */
 	void handleTargetHit();
+	
+	void handleBarrierHit();
 
 	/**
 	 * Calculates the fitness value of this rocket.
@@ -28,6 +30,8 @@ public interface RocketInterface {
 	 */
 	void calcFitness(Vector2 targetPosition);
 
+	void setFitness(float fitness);
+	
 	float getFitness();
 
 	Vector2 getPos();

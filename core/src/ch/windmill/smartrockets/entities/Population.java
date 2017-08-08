@@ -83,6 +83,9 @@ public class Population implements PopulationInterface {
 		if (isCollidedWithTarget(rocket)) {
 			rocket.handleTargetHit();
 		}
+		if(isCollidedWithBarrier(rocket)) {
+			rocket.handleBarrierHit();
+		}
 	}
 
 	private boolean isCollidedWithTarget(final RocketInterface rocket) {
@@ -95,6 +98,20 @@ public class Population implements PopulationInterface {
 			result = true;
 		}
 
+		return result;
+	}
+	
+	private boolean isCollidedWithBarrier(final RocketInterface rocket) {
+		boolean result = false;
+		
+		final Sprite rocketSprite = spriteManager.getRocketSprite();
+		final Sprite barrierSprite = spriteManager.getBarrierSprite();
+		rocketSprite.setPosition(rocket.getPos().x, rocket.getPos().y);
+		
+		if (rocketSprite.getBoundingRectangle().overlaps(barrierSprite.getBoundingRectangle())) {
+			result = true;
+		}
+		
 		return result;
 	}
 

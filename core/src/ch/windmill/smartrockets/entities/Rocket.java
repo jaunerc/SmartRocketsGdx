@@ -5,12 +5,14 @@ import java.util.NoSuchElementException;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import ch.windmill.smartrockets.helper.RocketMath;
+
 /**
  * This class represents a smart rocket.
  */
 public class Rocket implements RocketInterface {
 
-	private final static float MAX_VELOCITY = 4f;
+	private final static float MAX_VELOCITY = 6f;
 
 	private Vector2 position;
 	private Vector2 velocity;
@@ -55,6 +57,11 @@ public class Rocket implements RocketInterface {
 	public Dna getDna() {
 		return dna;
 	}
+	
+	@Override
+	public void setFitness(final float fitness) {
+		this.fitness = fitness;
+	}
 
 	@Override
 	public float getFitness() {
@@ -74,12 +81,13 @@ public class Rocket implements RocketInterface {
 	@Override
 	public void calcFitness(final Vector2 target) {
 		final float distanceToTarget = position.dst(target);
-		fitness = 1 / distanceToTarget;
+		fitness = (1 / distanceToTarget);
+		//fitness = RocketMath.clamp(distanceToTarget, 800f, 0f);
 		if (completed) {
 			fitness *= 10;
 		}
 		if (crashed) {
-			fitness /= 2;
+			fitness /= 10;
 		}
 	}
 
@@ -127,4 +135,8 @@ public class Rocket implements RocketInterface {
 		completed = true;
 	}
 
+	@Override
+	public void handleBarrierHit() {
+		crashed = true;
+	}
 }

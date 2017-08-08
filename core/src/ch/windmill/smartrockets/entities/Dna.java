@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Dna implements DnaInterface {
 
-	private final static double MUTATION_THRESHOLD = 0.01;
+	private final static double MUTATION_THRESHOLD = 0.05;
 
 	private List<Vector2> genes;
 	private Iterator<Vector2> geneIterator;

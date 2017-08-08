@@ -44,11 +44,12 @@ public class SmartRocketsGame extends Game {
 		rocketTarget = new RocketTarget(target);
 		rocketTarget.initTexture();
 		
-		barrier = new Barrier(new Vector2(400, 600));
+		barrier = new Barrier(new Vector2(appConfig.VIEWPORT_WIDTH / 2, appConfig.VIEWPORT_HEIGHT / 3));
 		barrier.initTexture();
 		
 		spriteManager.createTargetSprite(rocketTarget.getTexture());
 		spriteManager.setTargetSpritePosition(rocketTarget.getCenterPosition());
+		spriteManager.setBarrierSprite(barrier.getBarrierSprite());
 		
 		population = new Population(matingPool, spriteManager);
 		population.generateRandomPopulation(appConfig.POPULATION_SIZE);
